@@ -1,14 +1,16 @@
 from flask import Flask, request, jsonify, render_template, flash
 from database import init_db, db
 from models import CalculationLog
+from prometheus_flask_exporter import PrometheusMetrics
 import logging
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
-# Секретный ключ нужен для flash сообщений (можно использовать os.urandom(24))
 app.secret_key = 'your_very_secret_key_here'
+
+metrics = PrometheusMetrics(app)
 
 # Инициализация базы данных
 init_db(app)
@@ -125,4 +127,4 @@ def index():
 
 if __name__ == '__main__':
     # Важно: debug=True НЕ использовать в продакшене!
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=8080)
