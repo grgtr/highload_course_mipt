@@ -3,3 +3,4 @@ Flask-SQLAlchemy>=2.5
 SQLAlchemy>=1.4
 prometheus-flask-exporter>=0.18
 locust==2.34.1
+psutil==7.0.0
