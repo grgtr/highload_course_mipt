@@ -1,3 +1,9 @@
+## Отчеты о проделанной работе:
+- Отчет о тестировании: https://docs.google.com/document/d/16bRTDjW6HAtdDSNdXT9NzLpkXr9X_xw6N5REK_QQyLo/edit?usp=sharing
+- Отчет об архитектуре и проделанной работе: https://docs.google.com/document/d/1xSWsy8kfnXe-1mEEOlKQdsjrrk3qjmmZJo3KXv1Sl30/edit?usp=sharing
+
+
+
 ## Как запустить проект?
 
 1. Клонируйте этот репозиторий и перейдите в папку с ним:
@@ -43,3 +49,4 @@ docker-compose up --build
 ```bash
 docker-compose --profile test up --build
 ```
+
