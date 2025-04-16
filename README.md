@@ -32,3 +32,14 @@ python app.py
 locust -f load_test.py
 ```
 Перейдите в UI по адресу http://localhost:8089 и создайте нагрузочное тестирование (укажите кол-во пользователей, а в строке Host укажите http://127.0.0.1:8080)
+
+## Запуск через docker
+
+1) Без нагрузочного тестирования (`http://localhost:8080`)
+```bash
+docker-compose up --build
+```
+2) Вариант с нагрузочным тестированием (`http://localhost:8089`)
+```bash
+docker-compose --profile test up --build
+```
