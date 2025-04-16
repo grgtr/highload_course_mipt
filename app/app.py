@@ -105,18 +105,18 @@ def index():
 
         if not dob:
             flash("Пожалуйста, введите дату рождения.", "error")
-            return render_template('index.html')
+            return render_template('templates/index.html')
 
         logging.info(f"Запрос из формы: dob='{dob}'")
         destiny_number = calculate_destiny_number(dob)
 
         if destiny_number is not None:
             save_calculation(dob, destiny_number)
-            return render_template('index.html', destiny_number=destiny_number, dob_submitted=dob)
+            return render_template('templates/index.html', destiny_number=destiny_number, dob_submitted=dob)
         else:
             flash("Неверный формат даты. Пожалуйста, используйте формат ГГГГ-ММ-ДД.", "error")
 
-    return render_template('index.html')
+    return render_template('templates/index.html')
 
 
 if __name__ == '__main__':

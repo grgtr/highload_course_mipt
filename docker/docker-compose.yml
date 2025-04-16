@@ -3,22 +3,24 @@ version: '3.8'
 services:
   web:
     build: . 
+    context: ../
     container_name: destiny_calculator_app
     ports:
       - "8080:8080" 
     volumes:
-      - ./instance:/app/instance # Сохранение данных БД при перезапуске
+      - ../instance:/app/instance # Сохранение данных БД при перезапуске
     environment:
       PYTHONUNBUFFERED: 1
 
   locust:
     build: . 
+    context: ../
     container_name: destiny_calculator_locust
     profiles: ["test"]
     ports:
       - "8089:8089"
     volumes:
-      - .:/app
-    command: ["locust", "-f", "load_test.py", "--host=http://web:8080"]
+      - ..:/app
+    command: ["locust", "-f", "tests/load_test.py", "--host=http://web:8080"]
     depends_on:
       - web
