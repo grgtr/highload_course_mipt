@@ -1,0 +1,49 @@
+version: '3.8' # Указываем версию синтаксиса Compose
+
+services:
+  # Сервис для основного веб-приложения
+  web:
+    build: . # Указывает Docker Compose собрать образ из Dockerfile в текущей папке
+    container_name: destiny_calculator_app
+    ports:
+      - "8080:8080" # Маппинг: порт_на_хосте:порт_в_контейнере
+    volumes:
+      # Монтируем volume для папки instance, чтобы база данных сохранялась
+      # между перезапусками контейнера.
+      - ./instance:/app/instance
+      # Можно монтировать код для разработки, чтобы изменения отражались без пересборки:
+      # - .:/app
+    environment:
+      # Можно передавать переменные окружения, например:
+      # FLASK_DEBUG: 0 # Отключить дебаг режим Flask (рекомендуется)
+      # PYTHONUNBUFFERED: 1 # Чтобы логи Python сразу выводились в stdout/stderr Docker
+      PYTHONUNBUFFERED: 1
+    # Команда по умолчанию берется из CMD Dockerfile: ["python", "app.py"]
+    # command: python app.py # Можно переопределить здесь, но не нужно для основного режима
+
+  # Сервис для запуска Locust (использует тот же образ, что и web)
+  # Будет запущен только при активации профиля 'locust'
+  locust:
+    build: . # Используем тот же образ
+    container_name: destiny_calculator_locust
+    profiles: ["test"] # Этот сервис запускается только с флагом --profile test
+    ports:
+      - "8089:8089" # Маппинг порта UI Locust
+    volumes:
+      # Монтируем код, чтобы locust видел load_test.py
+      - .:/app
+    # Переопределяем команду для запуска Locust
+    # --host указывает Locust, какой URL тестировать.
+    # 'web' - это имя сервиса Flask в этой же docker-compose сети.
+    # '5000' - это порт, который слушает Flask *внутри* контейнера web.
+    command: ["locust", "-f", "load_test.py", "--host=http://web:8080"]
+    depends_on:
+      - web # Убеждаемся, что веб-сервис запущен до старта Locust
+
+# Определяем volumes, если нужно использовать именованные volumes вместо bind mounts
+# volumes:
+#   db_data:
+
+# Сети (не обязательно для базового случая, Compose создаст сеть по умолчанию)
+# networks:
+#   app_net:
