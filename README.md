@@ -1,7 +1,7 @@
 ## Отчеты о проделанной работе:
 - Отчет о тестировании: https://docs.google.com/document/d/16bRTDjW6HAtdDSNdXT9NzLpkXr9X_xw6N5REK_QQyLo/edit?usp=sharing
 - Отчет об архитектуре и проделанной работе: https://docs.google.com/document/d/1xSWsy8kfnXe-1mEEOlKQdsjrrk3qjmmZJo3KXv1Sl30/edit?usp=sharing
-
+- Отчёт "Архитектурное решение. Развилка монолит-микросервис" : https://docs.google.com/document/d/14hA2qda5NnJyjiSNSxTifpq7lFDJgWb-Mf9b_5is1A8/edit?tab=t.0#heading=h.9204e681uxu3
 
 
 ## Как запустить проект?
